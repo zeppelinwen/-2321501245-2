@@ -1,0 +1,91 @@
+title: Student Jobs Data
+description: Information and data about part-time jobs for university students
+theme: minima
+
+markdown: kramdown
+permalink: pretty
+---
+layout: default
+title: Home
+---
+
+# Welcome to Student Jobs Data
+
+This site provides information and data about part-time jobs for university students.
+
+## Introduction
+Here you will find statistics, trends, and visualizations related to student part-time jobs.
+- year: 2020
+  total_jobs: 1200
+  top_sectors:
+    - sector: Retail
+      jobs: 400
+    - sector: Food Service
+      jobs: 300
+    - sector: Tutoring
+      jobs: 200
+    - sector: IT Support
+      jobs: 100
+    - sector: Administration
+      jobs: 200
+
+- year: 2021
+  total_jobs: 1300
+  top_sectors:
+    - sector: Retail
+      jobs: 450
+    - sector: Food Service
+      jobs: 320
+    - sector: Tutoring
+      jobs: 210
+    - sector: IT Support
+      jobs: 120
+    - sector: Administration
+      jobs: 200
+
+- year: 2022
+  total_jobs: 1400
+  top_sectors:
+    - sector: Retail
+      jobs: 480
+    - sector: Food Service
+      jobs: 350
+    - sector: Tutoring
+      jobs: 220
+    - sector: IT Support
+      jobs: 130
+    - sector: Administration
+      jobs: 220
+## Data Visualization
+
+<canvas id="jobsChart" width="400" height="400"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('jobsChart').getContext('2d');
+    var jobsData = {{ site.data.jobs | jsonify }};
+    var years = jobsData.map(data => data.year);
+    var totalJobs = jobsData.map(data => data.total_jobs);
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: years,
+            datasets: [{
+                label: 'Total Jobs',
+                data: totalJobs,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+});
+</script>
